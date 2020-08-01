@@ -1,5 +1,4 @@
 <?php
-use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,23 +12,7 @@ use Illuminate\Support\Facades\DB;
 */
 
 $router->get('/', function () use ($router) {
-    return DB::table('neighborhood_postal_codes')
-    ->select(
-        'states.name as state_name',
-        'cities.name as city_name',
-        'neighborhoods.name as neighborhood_name',
-        'postal_codes.code as postal_code'
-        )
-    ->join('neighborhoods','neighborhood_postal_codes.neighborhood_id','=','neighborhoods.id')
-    ->join('postal_codes','neighborhood_postal_codes.postal_code_id','=','postal_codes.id')
-    ->join('cities','neighborhoods.city_id','=','cities.id')
-    ->join('states','cities.state_id','=','states.id')
-    ->where('code','96580')
-    ->get();
-});
-
-$router->get('/code', function () use ($router) {
-    dd('hey');
+    return 'para usar la API inegresa en la URL los parametros: /api/{codigo_postal}/isfrom';
 });
 
 $router->group(['prefix' => 'api'], function($router){
