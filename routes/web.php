@@ -28,6 +28,10 @@ $router->get('/', function () use ($router) {
     ->get();
 });
 
+$router->get('/code', function () use ($router) {
+    dd('hey');
+});
+
 $router->group(['prefix' => 'api'], function($router){
     $router->get('{code}/isfrom','PostalCodeController@isFrom');
 });
