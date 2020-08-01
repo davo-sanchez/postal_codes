@@ -13,6 +13,7 @@ class PostalCode extends Model
     private $code = '';
 
     private $data = [
+            'status' => 'success',
             'codigo_postal' => '',
             'ciudad' => '',
             'estado' => '',
@@ -43,14 +44,20 @@ class PostalCode extends Model
                 ->where('code',$this->code)
                 ->get();
 
-                $this->data['codigo_postal'] = $code_info[0]->postal_code;
-                $this->data['ciudad']        = $code_info[0]->city_name;
-                $this->data['estado']        = $code_info[0]->state_name;
+                if(!count($code_info)){
+                    $this->data['status'] = 'error';
+                } else {
 
-                foreach($code_info as $info){
+                    $this->data['codigo_postal'] = $code_info[0]->postal_code;
+                    $this->data['ciudad']        = $code_info[0]->city_name;
+                    $this->data['estado']        = $code_info[0]->state_name;
 
-                    array_push($this->data['colonias'], $info->neighborhood_name);
-        
+                    foreach($code_info as $info){
+
+                        array_push($this->data['colonias'], $info->neighborhood_name);
+            
+                    }
+
                 }
     }
 
